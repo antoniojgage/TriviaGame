@@ -1,0 +1,134 @@
+.profile-img {
+    width: 30%;
+    height: 30%;
+}
+
+.quotes {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.portfolio-img {
+    width: 30%;
+    height: 30%;
+}
+
+.center {
+    text-align: center;
+}
+
+.title {
+    font-size: 4em;
+    color: white;
+    font-family: 'Bangers', cursive;
+}
+
+.heros {
+    vertical-align: middle;
+    color: gray;
+    font-family: 'Bangers', cursive;
+    border-color: white;
+    max-width: 40%;
+}
+
+
+
+button {
+    color: gray;
+    margin: .5%;
+    width: 50%;
+}
+
+button img {
+    color: gray;
+    margin: .5%;
+    width: 100%;
+}
+
+.playerOption {
+    /*color: orange;
+    background-color: blue;*/
+    max-width: 100%;
+}
+
+.defeated{
+    background-color: red;
+    opacity:50%;
+}
+.name{
+    font-size: 24px;
+    margin:;
+}
+.attackPower{
+    font-size: 24px;
+    margin:1%;
+}
+.health{
+    font-size: 24px;
+    margin:1%;
+}
+
+.waiting{
+    width:20%;
+}
+
+#playerOptions {
+    color: orange;
+    background-color: blue;
+}
+
+#defenderOptions {
+    color: orange;
+    background-color: orange;
+}
+
+#defenderChoice {
+    background-color: gray;
+    width:100%;
+}
+
+p {
+    font-size: 2em;
+}
+
+body {
+    background-color: black;
+}
+
+html {}
+
+#dashes {
+    letter-spacing: 1em;
+}
+
+#supagif {
+    max-height: 260px;
+}
+
+@media (max-width: 768px) {
+    .btn {
+        font-size: 11px;
+        padding: 4px 6px;
+    }
+}
+
+@media (min-width: 768px) {
+    .btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+@media (min-width: 992px) {
+    .btn {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .btn {
+        padding: 10px 16px;
+        font-size: 18px;
+    }
+}

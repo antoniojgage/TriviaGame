@@ -1,0 +1,84 @@
+.profile-img {
+    width: 30%;
+    height: 30%;
+}
+
+.quotes {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.portfolio-img {
+    width: 30%;
+    height: 30%;
+}
+
+.center {
+    text-align: center;
+}
+
+.title {
+    font-size: 4em;
+}
+
+.hangman {
+    vertical-align: middle;
+    color: white;
+    font-family: 'Bangers', cursive;
+}
+
+#buttons {
+    color: gray;
+}
+
+#playerOptions {
+    color:blue;
+}
+
+p {
+    font-size: 2em;
+}
+
+body {
+    background-color: black;
+}
+
+html {}
+
+#dashes {
+    letter-spacing: 1em;
+}
+
+#supagif{
+    max-height:260px;
+}
+
+@media (max-width: 768px) {
+    .btn {
+        font-size: 11px;
+        padding: 4px 6px;
+    }
+}
+
+@media (min-width: 768px) {
+    .btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+@media (min-width: 992px) {
+    .btn {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .btn {
+        padding: 10px 16px;
+        font-size: 18px;
+    }
+}
+
+
