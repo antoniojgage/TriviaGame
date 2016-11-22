@@ -10,41 +10,37 @@
     <!-- link to the jQuery Library -->
     <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
     <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/rpg.css" rel="stylesheet">
+    <!-- <link href="assets/css/rpg.css" rel="stylesheet"> -->
     <!-- Including superhero font! -->
     <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>SOOPA RPG!</title>
+    <title>Trivia Game!</title>
 </head>
 
 <body>
     <div class="container">
         <h1 class="center title">Battle Galore</h1>
         <div class="row">
-            <div class="col-lg-6">
-                <!-- All options will initially show here -->
-                <div id="options"></div>
-                <!-- Once a player option is selected all remainding options will go into the dive below -->
-                <div id="defenderOptions"></div>
-                <div class="defeated center"></div>
-            </div>
-            <div class="col-lg-6">
-                <!-- Once a player selects a character it will be placed in playerOptions div -->
-                <div class="center" id="playerOptions"></div>
-                <!-- once a defender is chosen, it will be pushed to defender choice -->
-                <div class="center" id="defenderChoice"></div>
-                <div class="center" id="attack">
-                    <button id="attack" type="button" class="btn btn-primary">Attack!</button>
-                    <div class="currentHealth center"></div>
+            <div class="col-lg-12 center">
+                <div id="wrapper">
+                    <div>
+                        <h2 id="display">00:00</h2></div>
+                    <!-- Div containing our stopwatch controls -->
+                    <div id="buttons">
+                        <button id="start">Start</button>
+                        <button id="reset">Reset</button>
+                    </div>
+                    <div id="questions"></div>
+                    <div id="choices"></div>
                 </div>
-                <div id="reset" class="center">
-                    <button id="Reset" type="button" class="btn btn-primary center">Reset!</button>
-                </div>
+                <!-- jQuery -->
+             <!--    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script> -->
             </div>
         </div>
     </div>
     </div>
-    <script src="assets/js/rpg.js"></script>
+    </div>
+    <script src="assets/js/trivia.js"></script>
 </body>
 
 </html>
