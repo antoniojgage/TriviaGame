@@ -22,3 +22,15 @@ img {
     width: 100px;
 }
 */
+
+.correctAnswer {
+	background-color:green;
+}
+
+.wrongCSS {
+	background-color:red;
+}
+
+button {
+	background-color: gray;
+}
