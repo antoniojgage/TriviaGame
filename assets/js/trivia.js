@@ -11,51 +11,58 @@ $(document).ready(function() {
             0: {
                 question: "Does Batman Wear a Cape?",
                 choices: ["yes", "no", "maybe"],
-                correctAnswer: "yes"
+                correctAnswer: 0
             },
             1: {
                 question: "What is superman's real name?",
                 choices: ["Clark", "Bruce", "Benton"],
-                correctAnswer: "Clark"
+                correctAnswer: 0
             },
             2: {
                 question: "What is Superman's only weakness?",
-                choices: ["Samsonite", "Kryptonite", "plutonite", "Steel"],
-                correctAnswer: "Kryptonite"
+                choices: ["Samsonite", "Kryptonite", "plutonite", "Steel", "Lois Lane"],
+                correctAnswer: 1
             },
             3: {
                 question: "Just as Superman has been known by other names, so has Batman. For this question, can you find the one name that has NOT been traditionally associated with Batman?",
                 choices: ["World's Greatest Vigilante", "The Dark Knight", "The Caped Crusader", "World's Greatest Detective"],
-                correctAnswer: "The Dark Knight"
+                correctAnswer: 0
             },
             4: {
                 question: "Batman protects what city?",
                 choices: ["Chicago", "Metropolis", "Gotham City", "New York City"],
-                correctAnswer: "Gotham City"
+                correctAnswer: 2
             }
         },
 
         askQuestions: function() {
-            console.log(this.i);
+            console.log("Current I: " + this.i);
             $("#questions").html("<h1>" + trivia.heroQuestions[this.i].question + "</h2>");
             for (c = 0; c < trivia.heroQuestions[this.i].choices.length; c++) {
-                $("#choices").append("<button class='choices' data-value=" + trivia.heroQuestions[this.i].choices[c] + ">" + trivia.heroQuestions[this.i].choices[c] + "</button>");
+                $("#choices").append("<button class='choices' data-value=" + (trivia.heroQuestions[this.i].choices.indexOf(trivia.heroQuestions[this.i].choices[c])) + ">" + trivia.heroQuestions[this.i].choices[c] + "</button>");
+                console.log("Creating button: " + trivia.heroQuestions[this.i].choices[c]);
             }
             trivia.start();
         },
         checkAnswer: function(selectedAnswer) {
-            console.log("current i = " + this.i);
             console.log("Correct answer is: " + trivia.heroQuestions[this.i].correctAnswer);
+            var correctAnswerIndex = trivia.heroQuestions[this.i].correctAnswer; //new code
+            var userChoice = selectedAnswer.data("value");
             clearInterval(counter);
-            console.log(selectedAnswer.data("value"));
+            console.log("correct answer Index " + correctAnswerIndex + " and userChoice = " + userChoice);
 
-            if (selectedAnswer.data("value") === trivia.heroQuestions[this.i].correctAnswer) {
-                $(selectedAnswer).addClass("correctAnswer");
+            if (correctAnswerIndex === userChoice) {
+                // if (selectedAnswer.data("value") === trivia.heroQuestions[this.i].correctAnswer) { //working if statement
+                // $(selectedAnswer).addClass("correctAnswer"); //old code
+                $(".choices[data-value='" + correctAnswerIndex + "']").addClass("correctAnswer"); //new code
                 console.log("YOU'RE RIGHT! I =" + this.i);
                 trivia.correct++;
                 trivia.time += 15;
-            } else if (selectedAnswer.data("value") !== trivia.heroQuestions[this.i].correctAnswer) {
-                $(".choices[data-value='" + trivia.heroQuestions[this.i].correctAnswer + "']").addClass("correctAnswer");
+            } else if (correctAnswerIndex !== userChoice) { //new code
+                // } else if (selectedAnswer.data("value") !== trivia.heroQuestions[this.i].correctAnswer) { //working else statement
+                // $(".choices[data-value='" + (trivia.heroQuestions[this.i].correctAnswer) + "']").addClass("correctAnswer"); //working
+                $(".choices[data-value='" + correctAnswerIndex + "']").addClass("correctAnswer");
+                $(".choices")
                 $(selectedAnswer).addClass("wrongCSS");
                 trivia.incorrect++;
             }
@@ -73,7 +80,8 @@ $(document).ready(function() {
                 $("#questions").html("<h1>" + trivia.heroQuestions[this.i].question + "</h2>");
                 console.log(trivia.heroQuestions[this.i].question);
                 for (c = 0; c < trivia.heroQuestions[this.i].choices.length; c++) {
-                    $("#choices").append("<button class='choices' data-value=" + trivia.heroQuestions[this.i].choices[c] + ">" + trivia.heroQuestions[this.i].choices[c] + "</button>");
+                    $("#choices").append("<button class='choices' data-value=" + (trivia.heroQuestions[this.i].choices.indexOf(trivia.heroQuestions[this.i].choices[c])) + ">" + trivia.heroQuestions[this.i].choices[c] + "</button>");
+                    console.log("Creating button: " + trivia.heroQuestions[this.i].choices[c]);
                 }
             } else {
                 alert("no more questions");
@@ -85,8 +93,6 @@ $(document).ready(function() {
             setTimeout(function() { trivia.nextQuestion() }, 5000);
         },
         start: function() {
-            // DONE: Use setInterval to start the count here.
-            // trivia.time +=30;
             counter = setInterval(trivia.count, 1000);
         },
         stop: function() {
@@ -129,13 +135,16 @@ $(document).ready(function() {
         }
 
     };
+
     $("#start").on("click", function() {
         trivia.askQuestions();
     });
 
     $(document).on("click", "button", function() {
         if ($(this).hasClass("choices")) {
+            console.log($(this));
             trivia.checkAnswer($(this));
+
         }
     });
 });
