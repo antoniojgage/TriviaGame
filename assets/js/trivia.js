@@ -1,13 +1,15 @@
 $(document).ready(function() {
 
-
+    //Start to the Trivia game object. This object contains all methods and questions for the game
     var trivia = {
-        time: 10,
+
+        time: 30, //starting game time at 30 seconds
         correct: 0,
         incorrect: 0,
-        counter: 0,
-        i: 0,
+        counter: 0, //this is the initial time interval object
+        i: 0, //i = index of heroQuestions object
         heroQuestions: {
+            //Index: {question,choices[],index of correct answer choice}
             0: {
                 question: "Does Batman Wear a Cape?",
                 choices: ["yes", "no", "maybe"],
@@ -35,64 +37,72 @@ $(document).ready(function() {
             }
         },
 
+        //initial ask questions method initiated at begining of the game.
         askQuestions: function() {
-            console.log("Current I: " + this.i);
-            $("#questions").html("<h1>" + trivia.heroQuestions[this.i].question + "</h2>");
-            for (c = 0; c < trivia.heroQuestions[this.i].choices.length; c++) {
-                $("#choices").append("<button class='choices' data-value=" + (trivia.heroQuestions[this.i].choices.indexOf(trivia.heroQuestions[this.i].choices[c])) + ">" + trivia.heroQuestions[this.i].choices[c] + "</button>");
-                console.log("Creating button: " + trivia.heroQuestions[this.i].choices[c]);
+            var currentQuestion = trivia.heroQuestions[this.i].question;
+            var choicesLength = trivia.heroQuestions[this.i].choices.length;
+            var thisQuestion = trivia.heroQuestions[this.i];
+
+            $("#questions").html("<h3>" + currentQuestion + "</h3>");
+            for (c = 0; c < choicesLength; c++) {
+                //this loop will create the buttons for each question and apply the correct answer's index in the data value 
+                $("#choices").append("<button class='choices btn-default' data-value=" + (thisQuestion.choices.indexOf(thisQuestion.choices[c])) + ">" + thisQuestion.choices[c] + "</button>");
+                console.log("Creating button: " + thisQuestion.choices[c]);
             }
+            //after question and buttons have been created, start the timer
             trivia.start();
         },
+        //this method will pass this as selectedAnswer and check if the index of the data-value is = to the data value of the selected answer
         checkAnswer: function(selectedAnswer) {
-            console.log("Correct answer is: " + trivia.heroQuestions[this.i].correctAnswer);
-            var correctAnswerIndex = trivia.heroQuestions[this.i].correctAnswer; //new code
+            var thisQuestion = trivia.heroQuestions[this.i];
+            console.log("Correct answer is: " + thisQuestion.correctAnswer);
+            //store the index of the correct answer
+            var correctAnswerIndex = thisQuestion.correctAnswer;
+            //store the index of what the user selected.
             var userChoice = selectedAnswer.data("value");
-            clearInterval(counter);
+            clearInterval(counter); //stop the timer
             console.log("correct answer Index " + correctAnswerIndex + " and userChoice = " + userChoice);
 
             if (correctAnswerIndex === userChoice) {
-                // if (selectedAnswer.data("value") === trivia.heroQuestions[this.i].correctAnswer) { //working if statement
-                // $(selectedAnswer).addClass("correctAnswer"); //old code
-                $(".choices[data-value='" + correctAnswerIndex + "']").addClass("correctAnswer"); //new code
+                $(".choices[data-value='" + correctAnswerIndex + "']").addClass("correctAnswer"); //mark correct answer green
                 console.log("YOU'RE RIGHT! I =" + this.i);
                 trivia.correct++;
                 trivia.time += 15;
-            } else if (correctAnswerIndex !== userChoice) { //new code
-                // } else if (selectedAnswer.data("value") !== trivia.heroQuestions[this.i].correctAnswer) { //working else statement
-                // $(".choices[data-value='" + (trivia.heroQuestions[this.i].correctAnswer) + "']").addClass("correctAnswer"); //working
-                $(".choices[data-value='" + correctAnswerIndex + "']").addClass("correctAnswer");
-                $(".choices")
-                $(selectedAnswer).addClass("wrongCSS");
+            } else if (correctAnswerIndex !== userChoice) {
+                $(".choices[data-value='" + correctAnswerIndex + "']").addClass("correctAnswer"); //mark correct answer green
+                $(selectedAnswer).toggleClass("btn-default");
+                $(selectedAnswer).addClass("wrongCSS"); //mark wrong answer red
                 trivia.incorrect++;
             }
-            this.i++;
-            // trivia.nextQuestion();
+            this.i++; //change the index of the current question
             trivia.reset();
-            console.log("This.i = " + this.i);
             trivia.writeStats();
         },
 
         nextQuestion: function() {
+            //check if trivia game is out of questions, if its undefined its out 
             if (trivia.heroQuestions[this.i] !== undefined) {
                 $("#questions").html("");
                 $("#choices").html("");
-                $("#questions").html("<h1>" + trivia.heroQuestions[this.i].question + "</h2>");
+                $("#questions").html("<h3>" + trivia.heroQuestions[this.i].question + "</h3>");
                 console.log(trivia.heroQuestions[this.i].question);
                 for (c = 0; c < trivia.heroQuestions[this.i].choices.length; c++) {
-                    $("#choices").append("<button class='choices' data-value=" + (trivia.heroQuestions[this.i].choices.indexOf(trivia.heroQuestions[this.i].choices[c])) + ">" + trivia.heroQuestions[this.i].choices[c] + "</button>");
+                    $("#choices").append("<button class='choices btn-default' data-value=" + (trivia.heroQuestions[this.i].choices.indexOf(trivia.heroQuestions[this.i].choices[c])) + ">" + trivia.heroQuestions[this.i].choices[c] + "</button>");
                     console.log("Creating button: " + trivia.heroQuestions[this.i].choices[c]);
                 }
             } else {
+
                 alert("no more questions");
             }
             trivia.start();
             trivia.writeStats();
         },
         reset: function() {
+            //after 5 seconds, initiate next question method.
             setTimeout(function() { trivia.nextQuestion() }, 5000);
         },
         start: function() {
+            //begin game, count down 
             counter = setInterval(trivia.count, 1000);
         },
         stop: function() {
@@ -135,11 +145,11 @@ $(document).ready(function() {
         }
 
     };
-
+    //start the game, begin asking questions once user hits start
     $("#start").on("click", function() {
         trivia.askQuestions();
     });
-
+    //if user clicks on one of the choices, pass 'this' into the checkAnswers method
     $(document).on("click", "button", function() {
         if ($(this).hasClass("choices")) {
             console.log($(this));
