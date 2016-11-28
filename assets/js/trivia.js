@@ -51,6 +51,7 @@ $(document).ready(function() {
             }
             //after question and buttons have been created, start the timer
             trivia.start();
+            $("#start").hide();
         },
         //this method will pass this as selectedAnswer and check if the index of the data-value is = to the data value of the selected answer
         checkAnswer: function(selectedAnswer) {
@@ -91,7 +92,7 @@ $(document).ready(function() {
                     console.log("Creating button: " + trivia.heroQuestions[this.i].choices[c]);
                 }
             } else {
-
+                $("#start").show();
                 alert("no more questions");
             }
             trivia.start();
